@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Socket.IO dancer</title>
+        <script src="/lib/socket.io.min.js"></script>
+    </head>
+    <body>
+        <div id="dancer-data"></div>
+        <script>
+            const socket = io();
+            var dancerData = document.getElementById('dancer-data');
+
+            const generateRandomVector = () => {
+                return {
+                    x: Math.random(),
+                    y: Math.random(),
+                    z: Math.random()
+                }
+            }
+
+            const generateRandomJointData = () => {
+                return {
+                    pos: generateRandomVector(),
+                    rot: generateRandomVector()
+                }
+            }
+
+            socket.emit('start');
+
+            let mockData;
+            setInterval(()=> {
+                mockData = {
+                    head: generateRandomJointData(),
+                    left: generateRandomJointData(),
+                    right: generateRandomJointData()
+                }
+
+                let msg = JSON.stringify(mockData)
+                dancerData.textContent = msg;
+                socket.emit('dancer-data-unity', msg);
+            }, 5000)
+
+            socket.on('dancer-data-node', function(msg) {
+                console.log("dancer data received from node, this shouldn't happen")
+            });
+            
+        </script>
+    </body>
+</html>

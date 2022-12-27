@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Socket.IO audience</title>
+        <script src="/lib/socket.io.min.js"></script>
+        
+    </head>
+    <body>
+        <div id="dancer-data"> Dance hasn't started yet </div>
+        <script>
+            let socket = io();
+            let dancerData = document.getElementById('dancer-data');
+            let danceStarted = false;
+
+            socket.on('dancer-started', (msg) => {
+                console.log('dancer started');
+                danceStarted = true;
+                dancerData.textContent = 'dance start';
+            });
+
+            socket.on('dancer-data-node', function(msg) {
+                console.log('dancer data received from node')
+                if (danceStarted) dancerData.textContent = msg;
+            });
+        </script>
+    </body>
+</html>

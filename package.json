@@ -1,0 +1,16 @@
+{
+  "name": "atlanta-server",
+  "version": "1.0.0",
+  "description": "facilitates communication between dancer and audience (all wearing Quest, running a Unity app)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sinem Semsioglu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.5.4"
+  }
+}
